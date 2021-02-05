@@ -23,15 +23,33 @@ B = [0;
     (2*Km*(Ip + Mp*L^2 - Mp*L*R))/(Rm*R*alpha);
     0;
      (2*Km*(Mp*L - R*beta))/(Rm*R*alpha)];
- C = [1 0 0 0; 0 1 0 0; 0 0 1 0]; % outputs(x xdot theta)
+ C = [0 1 0 0; 0 0 1 0]; % outputs( xdot theta)
 
  %% Transfer Function
  [num,den] = ss2tf(A,B,C(1,1:end),0);
- tf_x_input = tf(num,den);
- [num,den] = ss2tf(A,B,C(2,1:end),0);
  tf_xdot_input = tf(num,den);
- [num,den] = ss2tf(A,B,C(3,1:end),0);
+ [num,den] = ss2tf(A,B,C(2,1:end),0);
  tf_theta_input = tf(num,den);
+ 
+ %% controller - theoric
+Gc_theta = pid(834,1112,139);
+sys_theta = feedback(Gc_theta * tf_theta_input,1);
+
+figure(1);
+subplot(2,2,1);
+rlocus(tf_theta_input);
+title("root locus - without controller");
+subplot(2,2,2);
+rlocus(tf_theta_input*Gc_theta);
+title("root locus - with controller");
+subplot(2,2,3);
+step(tf_theta_input);
+title("step response - open loop");
+subplot(2,2,4);
+step(sys_theta,10);
+title("step response - with controller");
+
+ 
  
  
  

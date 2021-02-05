@@ -48,6 +48,19 @@ title("step response - open loop");
 subplot(2,2,4);
 step(sys_theta,10);
 title("step response - with controller");
+stepinfo(sys_theta)
+
+%% controller - tune
+Gc_theta_tune = pid(930,1650,300);
+sys_theta_tune = feedback(Gc_theta_tune * tf_theta_input,1);
+figure(2);
+subplot(2,1,1);
+step(sys_theta,3);
+title("step response - theoric");
+subplot(2,1,2);
+step(sys_theta_tune,3);
+title("step response - tuned");
+stepinfo(sys_theta_tune)
 
  
  

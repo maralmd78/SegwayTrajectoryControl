@@ -23,13 +23,16 @@ B = [0;
     (2*Km*(Ip + Mp*L^2 - Mp*L*R))/(Rm*R*alpha);
     0;
      (2*Km*(Mp*L - R*beta))/(Rm*R*alpha)];
- C = [0 1 0 0; 0 0 1 0]; % outputs( xdot theta)
+ C = [0 1 0 0; 0 0 1 0;1 0 0 0]; % outputs( xdot theta x )
 
  %% Transfer Function
  [num,den] = ss2tf(A,B,C(1,1:end),0);
  tf_xdot_input = tf(num,den);
  [num,den] = ss2tf(A,B,C(2,1:end),0);
  tf_theta_input = tf(num,den);
+ [num,den] = ss2tf(A,B,C(3,1:end),0);
+ tf_x_input = tf(num,den);
+ 
  
  %% controller - theoric
 Gc_theta = pid(834,1112,139);
@@ -61,6 +64,7 @@ subplot(2,1,2);
 step(sys_theta_tune,3);
 title("step response - tuned");
 stepinfo(sys_theta_tune)
+
 
  
  

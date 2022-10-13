@@ -1,5 +1,5 @@
-in ordet to run the code do the following steps:
-1 - make sure too have all segway.wrl, segwayModel.m and segwaySim.slx in the same folder
+in order to run the code do the following steps:
+1 - make sure to have all segway.wrl, segwayModel.m and segwaySim.slx in the same folder
 1 - first, run segwayModel.m
 2 - then run the segwaySim.slx
     you can run each sub system separately but in order to run subsystems with vrml first you should comment out the other vrml sybsystem because there should not be 2 vr sinks at the same time in simulink
